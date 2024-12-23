@@ -9,6 +9,8 @@ import AuthForm from "./_components/AuthForm";
 import { signIn } from "@/lib/auth/signIn";
 import { setCookie } from "cookies-next";
 import { cookieName } from "@/lib/auth/constant";
+import axios from "axios";
+import { API_URL } from "@/configs/global";
 
 const LoginPage = () => {
   const [username, setUsername] = useState<string>("");
@@ -66,11 +68,12 @@ const LoginPage = () => {
 
   async function getCaptcha() {
     try {
-      const response: any = await getData(Apies.GetCaptcha);
+      const response: any = await axios.get(`${API_URL}${Apies.GetCaptcha}`);
+      console.log(response);
 
-      if (response) {
-        setCaptcha(response?.data?.svg_captcha);
-        setCaptchaId(response?.data?.captcha_id);
+      if (response.status === 200) {
+        setCaptcha(response?.data?.data?.svg_captcha);
+        setCaptchaId(response?.data?.data?.captcha_id);
       }
     } catch (e) {
       console.log("error in get captcha", e);
