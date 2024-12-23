@@ -31,10 +31,14 @@ const LoginPage = () => {
     try {
       const res: any = await postData(Apies.Login, body);
       if (res?.statusCode === 200) {
-        setCookie(cookieName, res.data.jwt, {
-          httpOnly: true,
-          secure: true,
-        });
+        setCookie(
+          cookieName,
+          res.data.jwt
+          //   , {
+          //   httpOnly: true,
+          //   secure: true,
+          // }
+        );
         router.push("/dashboard/home");
       } else {
         toast.error("خطا در ورود");
