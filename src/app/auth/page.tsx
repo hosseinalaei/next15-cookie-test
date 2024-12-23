@@ -52,6 +52,7 @@ const LoginPage = () => {
       //   captchaCode: formData.get("captchaCode") as string,
       //   captchaId: captchaId,
       // });
+      console.log("result", result);
 
       if (!result.success) {
         toast.error(result.message.message);
@@ -69,8 +70,6 @@ const LoginPage = () => {
   async function getCaptcha() {
     try {
       const response: any = await axios.get(`${API_URL}${Apies.GetCaptcha}`);
-      console.log(response);
-
       if (response.status === 200) {
         setCaptcha(response?.data?.data?.svg_captcha);
         setCaptchaId(response?.data?.data?.captcha_id);
