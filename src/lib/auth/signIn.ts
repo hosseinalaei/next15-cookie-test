@@ -9,21 +9,21 @@ interface Props {
   username: string;
   password: string;
   redirectTo?: string;
-  captchaCode: string;
-  captchaId: string;
+  captcha_text: string;
+  captcha_id: string;
 }
 export async function signIn({
   redirectTo = "/",
   username,
   password,
-  captchaCode,
-  captchaId,
+  captcha_text,
+  captcha_id,
 }: Props) {
   const body = {
     username,
     password,
-    captcha_text: captchaCode,
-    captcha_id: captchaId,
+    captcha_text: captcha_text,
+    captcha_id: captcha_id,
   };
   try {
     const res: any = await postData(Apies.Login, body);
@@ -32,9 +32,9 @@ export async function signIn({
 
     const cookieStore = await cookies();
     cookieStore.set(cookieName, res?.data?.jwt, {
-      httpOnly: false,
+      httpOnly: true,
       // secure: process.env.NODE_ENV === "production" ? true : false,
-      secure: false,
+      secure: true,
     });
 
     // redirect("/cooperate/admin/dashboard");

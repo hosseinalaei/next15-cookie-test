@@ -29,21 +29,21 @@ const LoginPage = () => {
       captcha_id: captchaId,
     };
     try {
-      const res: any = await postData(Apies.Login, body);
-      if (res?.statusCode === 200) {
-        setCookie(
-          cookieName,
-          res.data.jwt
-          //   , {
-          //   httpOnly: true,
-          //   secure: true,
-          // }
-        );
-        router.push("/dashboard/home");
-      } else {
-        toast.error("خطا در ورود");
-      }
-
+      // const res: any = await postData(Apies.Login, body);
+      // if (res?.statusCode === 200) {
+      //   setCookie(
+      //     cookieName,
+      //     res.data.jwt
+      //     //   , {
+      //     //   httpOnly: true,
+      //     //   secure: true,
+      //     // }
+      //   );
+      //   router.push("/dashboard/home");
+      // } else {
+      //   toast.error("خطا در ورود");
+      // }
+      const result = await signIn(body);
       // const result = await signIn({
       //   username: formData.get("username") as string,
       //   password: formData.get("password") as string,
@@ -51,12 +51,11 @@ const LoginPage = () => {
       //   captchaId: captchaId,
       // });
 
-      // if (!result.success) {
-      //   toast.error(result.message.message);
-      // }
-      // else {
-      //   router.push("/dashboard/home");
-      // }
+      if (!result.success) {
+        toast.error(result.message.message);
+      } else {
+        router.push("/dashboard/home");
+      }
     } catch (error: any) {
       toast.error(error.message);
       console.log(error);
