@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
-  output: "standalone",
+  // output: "standalone",
   async redirects() {
     return [
       {
