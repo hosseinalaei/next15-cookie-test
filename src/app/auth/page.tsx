@@ -32,7 +32,7 @@ const LoginPage = () => {
       const res: any = await postData(Apies.Login, body);
       if (res?.statusCode === 200) {
         setCookie(cookieName, res.data.jwt, {
-          httpOnly: false,
+          httpOnly: true,
           secure: true,
         });
         router.push("/dashboard/home");
