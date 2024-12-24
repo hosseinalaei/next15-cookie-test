@@ -80,7 +80,19 @@ export async function signIn({
   captcha_text,
   captcha_id,
 }: Props) {
+  if (!API_URL) {
+    console.error("API_URL is not defined");
+    return {
+      success: false,
+      message: "Configuration error",
+    };
+  }
+
   try {
+    // Log the request URL and body (remove in production)
+    console.log("Making request to:", `${API_URL}${Apies.Login}`);
+    console.log("Request body:", { username, captcha_text, captcha_id });
+
     const response = await fetch(`${API_URL}${Apies.Login}`, {
       method: "POST",
       headers: {
@@ -134,7 +146,7 @@ export async function signIn({
     return {
       success: true,
       data: {
-        jwt: data.data.jwt,
+        jwt: data?.data?.jwt,
       },
     };
   } catch (error) {
