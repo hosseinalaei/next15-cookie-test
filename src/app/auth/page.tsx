@@ -54,8 +54,8 @@ const LoginPage = () => {
       // });
       console.log("result", result);
 
-      if (!result.success) {
-        toast.error(result.message.message);
+      if (!result?.success) {
+        toast.error(result?.message.message);
       } else {
         router.push("/dashboard/home");
       }
