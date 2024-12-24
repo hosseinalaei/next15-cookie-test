@@ -91,7 +91,15 @@ export async function signIn({
   try {
     // Log the request URL and body (remove in production)
     console.log("Making request to:", `${API_URL}${Apies.Login}`);
-    console.log("Request body:", { username, captcha_text, captcha_id });
+    console.log(
+      "Request body:",
+      JSON.stringify({
+        username: username,
+        password: password,
+        captcha_text: captcha_text,
+        captcha_id: captcha_id,
+      })
+    );
 
     const response = await fetch(`${API_URL}${Apies.Login}`, {
       method: "POST",
@@ -99,13 +107,13 @@ export async function signIn({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
-        password,
-        captcha_text,
-        captcha_id,
+        username: username,
+        password: password,
+        captcha_text: captcha_text,
+        captcha_id: captcha_id,
       }),
     });
-    console.log("response", response.json());
+    // console.log("response", response.json());
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));

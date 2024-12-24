@@ -55,7 +55,7 @@ const LoginPage = () => {
       console.log("result", result);
 
       if (!result?.success) {
-        toast.error(result?.message.message);
+        toast.error(result?.message);
       } else {
         router.push("/dashboard/home");
       }
