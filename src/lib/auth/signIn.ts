@@ -105,6 +105,7 @@ export async function signIn({
         captcha_id,
       }),
     });
+    console.log("response", response.json());
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
