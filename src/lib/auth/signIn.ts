@@ -105,6 +105,7 @@ export async function signIn({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         username: username,
@@ -112,17 +113,29 @@ export async function signIn({
         captcha_text: captcha_text,
         captcha_id: captcha_id,
       }),
+      credentials: "include",
     });
     // console.log("response", response.json());
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error("Login failed:", response.status, errorData);
-      return {
-        success: false,
-        message:
-          errorData?.message || `Login failed with status ${response.status}`,
-      };
+      const errorText = await response.text();
+      console.error("Error response:", errorText);
+
+      try {
+        const errorJson = JSON.parse(errorText);
+        return {
+          success: false,
+          message: errorJson.message || `Server error: ${response.status}`,
+        };
+      } catch {
+        return {
+          success: false,
+          message: `Server error: ${response.status} - ${errorText.slice(
+            0,
+            100
+          )}`,
+        };
+      }
     }
 
     const data = await response.json();
@@ -140,7 +153,7 @@ export async function signIn({
       const cookieStore = await cookies();
       cookieStore.set(cookieName, data.data.jwt, {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         path: "/",
       });
