@@ -154,7 +154,7 @@ export async function signIn({
       cookieStore.set(cookieName, data.data.jwt, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "strict",
         path: "/",
       });
     } catch (cookieError) {
