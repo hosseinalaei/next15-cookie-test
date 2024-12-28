@@ -7,7 +7,10 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
-  // output: "standalone",
+  experimental: {
+    runtime: "edge",
+  },
+  output: "standalone",
   async redirects() {
     return [
       {
