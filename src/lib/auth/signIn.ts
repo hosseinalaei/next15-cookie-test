@@ -211,11 +211,12 @@ export async function signIn({
   };
   try {
     const res = await axios.post(`${API_URL}${Apies.Login}`, body);
+    console.log("aaaaaaaaa", res.data.data.jwt);
 
-    saveSession(res.data.jwt);
+    saveSession(res.data.data.jwt);
 
     // redirect("/cooperate/admin/dashboard");
-    return { success: true, data: res.data.jwt };
+    return { success: true, data: res.data.data };
   } catch (error: any) {
     return { success: false, message: error?.response?.data };
   }
