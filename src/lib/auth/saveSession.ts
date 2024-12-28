@@ -8,6 +8,6 @@ import { cookieName } from "./constant";
 // }
 
 export async function removeSession() {
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
   cookieStore.delete(cookieName);
 }

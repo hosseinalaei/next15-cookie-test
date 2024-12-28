@@ -67,6 +67,7 @@ import { cookies } from "next/headers";
 import { cookieName } from "./constant";
 import { API_URL } from "@/configs/global";
 import axios from "axios";
+import { redirect } from "next/navigation";
 interface Props {
   username: string;
   password: string;
@@ -150,13 +151,19 @@ export async function signIn({
 
     // Set the cookie
     try {
-      const cookieStore = await cookies();
+      const cookieStore = cookies();
       cookieStore.set(cookieName, data.data.jwt, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
       });
+      return {
+        success: true,
+        data: {
+          jwt: data?.data?.jwt,
+        },
+      };
     } catch (cookieError) {
       console.error("Failed to set cookie:", cookieError);
       return {
@@ -164,13 +171,6 @@ export async function signIn({
         message: "Failed to set authentication cookie",
       };
     }
-
-    return {
-      success: true,
-      data: {
-        jwt: data?.data?.jwt,
-      },
-    };
   } catch (error) {
     // Log the full error for debugging
     console.error("Login error:", error);

@@ -1,12 +1,12 @@
-"use client";
+// "use client";
 
-import { useContext } from "react";
-import { SessionContext } from "./SessionProvider";
+// import { useContext } from "react";
+// import { SessionContext } from "./SessionProvider";
 
-export function useSession() {
-  const session = useContext(SessionContext);
-  if (session === undefined) {
-    throw new Error("error");
-  }
-  return session;
-}
+// export function useSession() {
+//   const session = useContext(SessionContext);
+//   if (session === undefined) {
+//     throw new Error("error");
+//   }
+//   return session;
+// }
