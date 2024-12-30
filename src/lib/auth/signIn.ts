@@ -34,7 +34,7 @@ export async function signIn({
 
     // saveSession(res?.data?.jwt);
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.set("USER_SESSION", res?.data?.jwt);
 
     // redirect("/cooperate/admin/dashboard");
