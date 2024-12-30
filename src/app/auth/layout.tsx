@@ -1,4 +1,5 @@
-// "use server";
+"use client";
+
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return <main>{children}</main>;
 };

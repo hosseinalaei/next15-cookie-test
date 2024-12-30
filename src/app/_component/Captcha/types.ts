@@ -1,5 +1,5 @@
 type Captcha = {
-  getCaptcha?: () => void;
-  captcha?: string;
+  getCaptcha: () => void;
+  captcha: string;
   setInsertCaptcha?: any;
 };

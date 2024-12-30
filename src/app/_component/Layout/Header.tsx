@@ -1,12 +1,12 @@
 "use client";
+import { signOut } from "@/lib/auth/signOut";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 // import UserInfo from "../UserInfo";
-import { signOut } from "@/lib/auth/signOut";
+// import { signOut } from "@/lib/auth/signOut";
 import { useEffect, useRef, useState } from "react";
 // import Modal from "@/app/_components/Modal/Modal";
 // import ChangePassword from "../ChangePassword";
-// import { signOut } from "next-auth/react";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,10 +66,7 @@ const Header: React.FC = () => {
           <div className="flex bg-neutral-100 rounded-full justify-center items-center px-4 py-2">
             <span
               className="cursor-pointer"
-              onClick={() => {
-                // signOut({ callbackUrl: "/auth" });
-                signOut();
-              }}
+              onClick={() => signOut()}
               title="خروج"
             >
               خروج
