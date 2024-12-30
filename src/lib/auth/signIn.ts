@@ -187,7 +187,8 @@ import { API_URL } from "@/configs/global";
 import { Apies } from "@/constant/apis";
 import axios from "axios";
 import "server-only";
-import { saveSession } from "./saveSession";
+// import { saveSession } from "./saveSession";
+import { setCookie } from "cookies-next";
 
 interface Props {
   username: string;
@@ -213,7 +214,10 @@ export async function signIn({
     const res = await axios.post(`${API_URL}${Apies.Login}`, body);
     console.log("aaaaaaaaa", res.data.data.jwt);
 
-    saveSession(res.data.data.jwt);
+    if (res.data.data.jwt) {
+      setCookie("USER_SESSION", res.data.data.jwt);
+    }
+    // saveSession(res.data.data.jwt);
 
     // redirect("/cooperate/admin/dashboard");
     return { success: true, data: res.data.data };
