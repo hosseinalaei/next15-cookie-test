@@ -17,7 +17,7 @@ const Captcha = ({ getCaptcha, captcha, setInsertCaptcha }: Captcha) => {
         {/* <Image src={captcha} alt="captcha" width={90} height={100} /> */}
         <Input
           className="w-1/3"
-          name="captchaCode"
+          name="captcha_text"
           onChange={(e) => setInsertCaptcha(e.target.value)}
         />
       </div>

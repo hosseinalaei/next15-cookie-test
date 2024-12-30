@@ -37,7 +37,7 @@ const LoginPage = () => {
       const result = await signIn({
         username: formData.get("username") as string,
         password: formData.get("password") as string,
-        captchaCode: formData.get("captchaCode") as string,
+        captchaCode: formData.get("captcha_text") as string,
         captchaId: captchaId,
       });
       console.log("result", result);

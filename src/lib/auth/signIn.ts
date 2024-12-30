@@ -26,13 +26,15 @@ export async function signIn({
     captcha_text: captchaCode,
     captcha_id: captchaId,
   };
+  console.log("body", body);
+
   try {
     const res: any = await postData(Apies.Login, body);
     console.log("ressss", res?.data?.jwt);
 
     // saveSession(res?.data?.jwt);
 
-    const cookieStore = await cookies();
+    const cookieStore = cookies();
     cookieStore.set("USER_SESSION", res?.data?.jwt);
 
     // redirect("/cooperate/admin/dashboard");
