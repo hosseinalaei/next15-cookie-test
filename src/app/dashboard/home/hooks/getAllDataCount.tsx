@@ -11,5 +11,7 @@ export const useGetAllDataCount = () => {
     queryKey: ["dataCount"],
     queryFn: () => getAllDataCount(),
   });
+  console.log("cccccccccccccccccccc", data);
+
   return { data, isLoading };
 };

@@ -42,23 +42,23 @@ httpService.interceptors.request.use(
   }
 );
 
-// httpService.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-//     if (error?.response) {
-//       const statusCode = error?.response?.status;
-//       if (statusCode >= 400) {
-//         const errorData: ApiError = error.response?.data;
+httpService.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error?.response) {
+      const statusCode = error?.response?.status;
+      if (statusCode >= 400) {
+        const errorData: ApiError = error.response?.data;
 
-//         errorHandler[statusCode](errorData);
-//       }
-//     } else {
-//       networkErrorStrategy();
-//     }
-//   }
-// );
+        errorHandler[statusCode](errorData);
+      }
+    } else {
+      networkErrorStrategy();
+    }
+  }
+);
 
 async function apiBase<T>(
   url: string,
