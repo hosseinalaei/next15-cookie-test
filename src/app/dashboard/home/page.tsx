@@ -22,8 +22,6 @@ const HomePage = () => {
   // const session = useSession();
   // console.log("session", session);
 
-  console.log("allData", allData);
-
   return (
     <>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 justify-center gap-2">
