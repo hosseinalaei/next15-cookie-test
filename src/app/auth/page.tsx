@@ -4,32 +4,45 @@ import { API_URL } from "@/configs/global";
 import { Apies } from "@/constant/apis";
 // import { signIn } from "@/lib/auth/signIn";
 import axios from "axios";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import AuthForm from "./_components/AuthForm";
 import Input from "../_component/Form/Input";
 import Button from "../_component/Button";
+import { setCookie } from "cookies-next";
 // import { signIn } from "@/lib/auth/signIn";
 
 const LoginPage = () => {
-  // const [username, setUsername] = useState<string>("");
-  // const [password, setPassword] = useState<string>("");
-  // const [captcha, setCaptcha] = useState<string>("");
-  // const [insertCaptcha, setInsertCaptcha] = useState<string>("");
-  // const [captchaId, setCaptchaId] = useState<string>("");
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const router = useRouter();
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [captcha, setCaptcha] = useState<string>("");
+  const [insertCaptcha, setInsertCaptcha] = useState<string>("");
+  const [captchaId, setCaptchaId] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
-  async function handleSubmitLogin(formData: FormData) {
-    // e.preventDefault();
-    // setIsLoading(true);
-    // const body = {
-    //   username: username,
-    //   password: password,
-    //   captcha_text: insertCaptcha,
-    //   captcha_id: captchaId,
-    // };
+  async function handleSubmitLogin(e: any) {
+    e.preventDefault();
+
+    setIsLoading(true);
+    const body = {
+      username: username,
+      password: password,
+      captcha_text: insertCaptcha,
+      captcha_id: captchaId,
+    };
+    try {
+      const res = await axios.post(`${API_URL}${Apies.Login}`, body);
+      console.log("aaaaaaaaa", res.data.data.jwt);
+
+      if (res.data.data.jwt) {
+        setCookie("USER_SESSION", res.data.data.jwt);
+        return { success: true, data: res.data.data };
+      }
+    } catch (e: any) {
+      console.log(e);
+    }
     // const res: any = await postData(Apies.Login, body);
     // if (res?.statusCode === 200) {
     //   setCookie(
@@ -63,21 +76,21 @@ const LoginPage = () => {
     // setIsLoading(false);
   }
 
-  // async function getCaptcha() {
-  //   try {
-  //     const response: any = await axios.get(`${API_URL}${Apies.GetCaptcha}`);
-  //     if (response.status === 200) {
-  //       setCaptcha(response?.data?.data?.svg_captcha);
-  //       setCaptchaId(response?.data?.data?.captcha_id);
-  //     }
-  //   } catch (e) {
-  //     console.log("error in get captcha", e);
-  //   }
-  // }
+  async function getCaptcha() {
+    try {
+      const response: any = await axios.get(`${API_URL}${Apies.GetCaptcha}`);
+      if (response.status === 200) {
+        setCaptcha(response?.data?.data?.svg_captcha);
+        setCaptchaId(response?.data?.data?.captcha_id);
+      }
+    } catch (e) {
+      console.log("error in get captcha", e);
+    }
+  }
 
-  // useEffect(() => {
-  //   getCaptcha();
-  // }, []);
+  useEffect(() => {
+    getCaptcha();
+  }, []);
 
   // async function handleSubmit(formData: FormData) {
   //   console.log("aaaas");
@@ -93,14 +106,14 @@ const LoginPage = () => {
           <hr className="w-full h-px mx-auto my-2 bg-gray-400 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
 
           <AuthForm
-          // handleSubmit={handleSubmitLogin}
-          // setUsername={setUsername}
-          // setPassword={setPassword}
-          // setInsertCaptcha={setInsertCaptcha}
-          // insertCaptcha={insertCaptcha}
-          // getCaptcha={getCaptcha}
-          // captcha={captcha}
-          // isLoading={isLoading}
+            handleSubmit={handleSubmitLogin}
+            setUsername={setUsername}
+            setPassword={setPassword}
+            setInsertCaptcha={setInsertCaptcha}
+            insertCaptcha={insertCaptcha}
+            getCaptcha={getCaptcha}
+            captcha={captcha}
+            isLoading={isLoading}
           />
 
           {/* <form

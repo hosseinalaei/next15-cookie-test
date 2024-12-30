@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 // import { useState } from "react";
 // import { signIn } from "next-auth/react";
 
-const AuthForm = () =>
+const AuthForm = ({ handleSubmit }: any) =>
   // getCaptcha,
   // captcha,
   // isLoading,
@@ -16,33 +16,33 @@ const AuthForm = () =>
   // insertCaptcha,
   // setInsertCaptcha,
   {
-    const router = useRouter();
-    async function handleSubmit(formData: FormData) {
-      // const body = {
-      //   username: formData.get("username") as string,
-      //   password: formData.get("password") as string,
-      //   captcha_text: formData.get("captcha_text") as string,
-      //   captcha_id: formData.get("captcha_id") as string,
-      //   callbackUrl: "/dashboard/home",
-      // };
-      //"credentials",
-      const result = await signIn({
-        username: formData.get("username") as string,
-        password: formData.get("password") as string,
-        captcha_text: formData.get("captcha_text") as string,
-        captcha_id: formData.get("captcha_id") as string,
-        // callbackUrl: "/dashboard/home",
-      });
-      console.log("result", result);
-      if (result?.data?.jwt) {
-        router.push("/dashboard/home");
-      }
-    }
+    // const router = useRouter();
+    // async function handleSubmit(formData: FormData) {
+    //   // const body = {
+    //   //   username: formData.get("username") as string,
+    //   //   password: formData.get("password") as string,
+    //   //   captcha_text: formData.get("captcha_text") as string,
+    //   //   captcha_id: formData.get("captcha_id") as string,
+    //   //   callbackUrl: "/dashboard/home",
+    //   // };
+    //   //"credentials",
+    //   const result = await signIn({
+    //     username: formData.get("username") as string,
+    //     password: formData.get("password") as string,
+    //     captcha_text: formData.get("captcha_text") as string,
+    //     captcha_id: formData.get("captcha_id") as string,
+    //     // callbackUrl: "/dashboard/home",
+    //   });
+    //   console.log("result", result);
+    //   if (result?.data?.jwt) {
+    //     router.push("/dashboard/home");
+    //   }
+    // }
 
     return (
       <form
         className="w-full"
-        action={handleSubmit}
+        onSubmit={handleSubmit}
         // action={(e) => {
         //   // e.preventDefault();
         //   // const formData = new FormData(e.currentTarget);
