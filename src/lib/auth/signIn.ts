@@ -216,6 +216,7 @@ export async function signIn({
 
     if (res.data.data.jwt) {
       setCookie("USER_SESSION", res.data.data.jwt);
+      return { success: true, data: res.data.data };
     }
     // saveSession(res.data.data.jwt);
 
