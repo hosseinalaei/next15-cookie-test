@@ -10,6 +10,7 @@ import axios, {
 // import { getCookie } from "cookies-next/client";
 import { errorHandler, networkErrorStrategy } from "./http-error-strategies";
 import { cookies } from "next/headers";
+// import { getCookie, getCookies, hasCookie } from "cookies-next/server";
 
 const httpService = axios.create({
   baseURL: API_URL,
@@ -22,9 +23,12 @@ httpService.interceptors.request.use(
   async (config: any) => {
     // const token = getCookie(cookieName);
     // console.log("token", token);
-    const cookieStore = await cookies();
+    const cookieStore = cookies();
+    // const token = await getCookie("USER_SESSION");
+    // const token = localStorage.getItem("USER_SESSION");
     const token = cookieStore.get(cookieName)?.value;
 
+    console.log("tttttttttttt", token);
     if (token) {
       config.headers = {
         ...config.headers,

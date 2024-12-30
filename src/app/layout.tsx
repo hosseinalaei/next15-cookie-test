@@ -24,16 +24,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSession();
+  // const session = await getSession();
   // const session = await auth();
+  // console.log("session", session);
 
   // const session =
   return (
     <html lang="fa" dir="rtl">
       <body className={`${iranSans.variable}`}>
-        <SessionProvider session={session}>
-          <QueryProvider>{children}</QueryProvider>
-        </SessionProvider>
+        {/* <SessionProvider session={session}> */}
+        <QueryProvider>{children}</QueryProvider>
+        {/* </SessionProvider> */}
         <ToastContainer rtl={true} theme="colored" position="top-left" />
       </body>
     </html>
