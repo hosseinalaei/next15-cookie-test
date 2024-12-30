@@ -42,7 +42,7 @@ const Captcha = ({ setInsertCaptcha }: Captcha) => {
         <Input
           className="w-1/3"
           name="captcha_text"
-          // onChange={(e) => setInsertCaptcha(e.target.value)}
+          onChange={(e) => setInsertCaptcha(e.target.value)}
         />
         <Input
           value={captchaId}
