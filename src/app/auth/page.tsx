@@ -36,10 +36,12 @@ const LoginPage = () => {
       const res = await axios.post(`${API_URL}${Apies.Login}`, body);
       console.log("aaaaaaaaa", res.data.data.jwt);
 
-      if (res.data.data.jwt) {
-        setCookie("USER_SESSION", res.data.data.jwt);
-        return { success: true, data: res.data.data };
-      }
+      // if (res?.data?.data?.jwt) {
+      setCookie("USER_SESSION", res.data.data.jwt);
+
+      router.push("/dashboard/home");
+      // return { success: true, data: res.data.data };
+      // }
     } catch (e: any) {
       console.log(e);
     }
