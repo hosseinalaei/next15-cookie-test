@@ -27,6 +27,7 @@ export default async function RootLayout({
   const session = await getSession();
   // const session = await auth();
 
+  // const session =
   return (
     <html lang="fa" dir="rtl">
       <body className={`${iranSans.variable}`}>

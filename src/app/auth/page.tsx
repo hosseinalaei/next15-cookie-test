@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 // "use server";
 import { API_URL } from "@/configs/global";
 import { Apies } from "@/constant/apis";
