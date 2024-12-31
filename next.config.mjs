@@ -6,7 +6,10 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
+  // experimental: {
+  //   runtime: "edge",
+  // },
   // output: "standalone",
   async redirects() {
     return [

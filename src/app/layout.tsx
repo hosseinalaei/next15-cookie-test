@@ -1,7 +1,11 @@
+import QueryProvider from "@/providers/react-query-provider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
-import QueryProvider from "@/providers/react-query-provider";
+// import { auth } from "@/lib/auth/auth";
+// import { SessionProvider } from "next-auth/react";
 import { SessionProvider } from "@/lib/auth/SessionProvider";
 import { getSession } from "@/lib/auth/getSession";
 
@@ -21,12 +25,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getSession();
+  // const session = await auth();
+
   return (
     <html lang="fa" dir="rtl">
       <body className={`${iranSans.variable}`}>
         <SessionProvider session={session}>
           <QueryProvider>{children}</QueryProvider>
         </SessionProvider>
+        <ToastContainer rtl={true} theme="colored" position="top-left" />
       </body>
     </html>
   );
