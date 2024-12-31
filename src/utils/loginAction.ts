@@ -53,7 +53,6 @@ export async function serverSideSubmit(formData: FormData) {
     });
 
     if (!response.ok) {
-      // Handle error response
       const errorData = await response.json();
       throw new Error(errorData?.message || "Login failed");
     }
@@ -61,17 +60,12 @@ export async function serverSideSubmit(formData: FormData) {
     const data = await response.json();
 
     if (data.data.jwt) {
-      // Set the cookie
       cookies().set(cookieName, data.data.jwt, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        path: "/",
       });
-
-      // Perform the redirect
     }
   } catch (e: any) {
-    // Return error for the client to handle
     return { error: e.message };
   }
   redirect("/dashboard/home");
