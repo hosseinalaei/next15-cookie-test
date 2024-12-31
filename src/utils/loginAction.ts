@@ -59,7 +59,7 @@ export async function serverSideSubmit(formData: FormData) {
 
     if (data.data.jwt) {
       cookies().set(cookieName, data.data.jwt, {
-        httpOnly: true,
+        httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         // sameSite: "lax",
       });
