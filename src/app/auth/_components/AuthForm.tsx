@@ -5,40 +5,38 @@ import Input from "@/app/_component/Form/Input";
 import { API_URL } from "@/configs/global";
 import { Apies } from "@/constant/apis";
 import { cookieName } from "@/lib/auth/constant";
-import { signIn } from "@/lib/auth/signIn";
+import { serverSideSubmit } from "@/utils/loginAction";
 import axios from "axios";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
-// import { useState } from "react";
-// import { signIn } from "next-auth/react";
 
 const AuthForm = () => {
   const router = useRouter();
 
-  const clientSideSubmit = async (formData: FormData) => {
-    try {
-      const response = await axios.post(`${API_URL}${Apies.Login}`, {
-        username: formData.get("username") as string,
-        password: formData.get("password") as string,
-        captcha_text: formData.get("captcha_text") as string,
-        captcha_id: formData.get("captcha_id") as string,
-      });
-      if (response.data.data.jwt) {
-        setCookie(cookieName, response.data.data.jwt, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-        });
-        router.push("/dashboard/home");
-      }
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
+  // const clientSideSubmit = async (formData: FormData) => {
+  //   try {
+  //     const response = await axios.post(`${API_URL}${Apies.Login}`, {
+  //       username: formData.get("username") as string,
+  //       password: formData.get("password") as string,
+  //       captcha_text: formData.get("captcha_text") as string,
+  //       captcha_id: formData.get("captcha_id") as string,
+  //     });
+  //     if (response.data.data.jwt) {
+  //       setCookie(cookieName, response.data.data.jwt, {
+  //         httpOnly: true,
+  //         secure: process.env.NODE_ENV === "production",
+  //       });
+  //       router.push("/dashboard/home");
+  //     }
+  //   } catch (e: any) {
+  //     console.log(e);
+  //   }
+  // };
 
   return (
     <form
       className="w-full"
-      action={clientSideSubmit}
+      action={serverSideSubmit}
       // action={(e) => {
       //   // e.preventDefault();
       //   // const formData = new FormData(e.currentTarget);
