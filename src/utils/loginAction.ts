@@ -28,7 +28,9 @@
 //   }
 // }
 // app/auth/actions.ts
+// app/auth/actions.ts
 "use server";
+
 import { API_URL } from "@/configs/global";
 import { Apies } from "@/constant/apis";
 import { cookieName } from "@/lib/auth/constant";
@@ -52,24 +54,25 @@ export async function serverSideSubmit(formData: FormData) {
 
     if (!response.ok) {
       // Handle error response
-      throw new Error("Login failed");
+      const errorData = await response.json();
+      throw new Error(errorData?.message || "Login failed");
     }
 
     const data = await response.json();
 
     if (data.data.jwt) {
+      // Set the cookie
       cookies().set(cookieName, data.data.jwt, {
-        httpOnly: false,
+        httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        // sameSite: "lax",
+        path: "/",
       });
-      redirect("/dashboard/home");
-      //   return { data };
-      // For server actions, we need to return the redirect
-      //   return redirect("/dashboard/home");
+
+      // Perform the redirect
     }
   } catch (e: any) {
-    // Return the error instead of console.log
+    // Return error for the client to handle
     return { error: e.message };
   }
+  redirect("/dashboard/home");
 }

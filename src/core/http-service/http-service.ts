@@ -1,4 +1,4 @@
-// "use server";
+"use server";
 import { API_URL } from "@/configs/global";
 import { cookieName } from "@/lib/auth/constant";
 import { ApiError } from "@/types/http-errors.interface";
@@ -8,8 +8,8 @@ import axios, {
   AxiosResponse,
 } from "axios";
 import { errorHandler, networkErrorStrategy } from "./http-error-strategies";
-// import { cookies } from "next/headers";
-import { getCookie } from "cookies-next/server";
+import { cookies } from "next/headers";
+// import { getCookie } from "cookies-next/server";
 
 const httpService = axios.create({
   baseURL: API_URL,
@@ -20,9 +20,9 @@ const httpService = axios.create({
 
 httpService.interceptors.request.use(
   async (config: any) => {
-    const cookieStore = getCookie(cookieName);
-    // const token = cookieStore.get(cookieName)?.value;
-    const token = cookieStore;
+    const cookieStore = cookies();
+    const token = cookieStore.get(cookieName)?.value;
+    // const token = cookieStore;
 
     if (token) {
       config.headers = {
