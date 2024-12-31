@@ -22,7 +22,7 @@ httpService.interceptors.request.use(
   async (config: any) => {
     // const token = getCookie(cookieName);
     // console.log("token", token);
-    const cookieStore = await cookies();
+    const cookieStore = cookies();
     const token = cookieStore.get(cookieName)?.value;
 
     if (token) {
