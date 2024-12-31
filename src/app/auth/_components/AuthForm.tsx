@@ -9,10 +9,13 @@ import { serverSideSubmit } from "@/utils/loginAction";
 import axios from "axios";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useFormStatus } from "react-dom";
 
 const AuthForm = () => {
+  const [error, setError] = useState("");
   const router = useRouter();
-
+  const { pending } = useFormStatus();
   // const clientSideSubmit = async (formData: FormData) => {
   //   try {
   //     const response = await axios.post(`${API_URL}${Apies.Login}`, {
@@ -33,10 +36,23 @@ const AuthForm = () => {
   //   }
   // };
 
+  async function handleSubmit(formData: FormData) {
+    const result = await serverSideSubmit(formData);
+    console.log("result", result);
+    if (result) {
+      if (result.data.data.jwt) {
+        router.push("/dashboard/home");
+      }
+
+      if ("error" in result) {
+        setError(result.error);
+      }
+    }
+  }
   return (
     <form
       className="w-full"
-      action={serverSideSubmit}
+      action={handleSubmit}
       // action={(e) => {
       //   // e.preventDefault();
       //   // const formData = new FormData(e.currentTarget);
