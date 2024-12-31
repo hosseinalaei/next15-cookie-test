@@ -40,9 +40,9 @@ const AuthForm = () => {
     const result = await serverSideSubmit(formData);
     console.log("result", result);
     if (result) {
-      if (result.data.data.jwt) {
-        router.push("/dashboard/home");
-      }
+      // if (result.data.data.jwt) {
+      //   router.push("/dashboard/home");
+      // }
 
       if ("error" in result) {
         setError(result.error);

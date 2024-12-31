@@ -63,8 +63,8 @@ export async function serverSideSubmit(formData: FormData) {
         secure: process.env.NODE_ENV === "production",
         // sameSite: "lax",
       });
-      //   redirect("/dashboard/home");
-      return { data };
+      redirect("/dashboard/home");
+      //   return { data };
       // For server actions, we need to return the redirect
       //   return redirect("/dashboard/home");
     }
