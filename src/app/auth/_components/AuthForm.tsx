@@ -169,7 +169,12 @@
 import Button from "@/app/_component/Button";
 import Captcha from "@/app/_component/Captcha/Captcha";
 import Input from "@/app/_component/Form/Input";
+import { API_URL } from "@/configs/global";
+import { Apies } from "@/constant/apis";
+import { cookieName } from "@/lib/auth/constant";
 import { serverSideSubmit } from "@/utils/loginAction";
+import axios from "axios";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -179,16 +184,29 @@ const AuthForm = () => {
   const router = useRouter();
 
   async function handleSubmit(formData: FormData) {
-    setIsSubmitting(true);
-    setError("");
+    // setIsSubmitting(true);
+    // setError("");
 
-    const result = await serverSideSubmit(formData);
+    // const result = await serverSideSubmit(formData);
 
-    if (result?.error) {
-      // Display the error
-      setError(result.error);
-      setIsSubmitting(false);
-    }
+    // if (result?.error) {
+    //   // Display the error
+    //   setError(result.error);
+    //   setIsSubmitting(false);
+    // }
+    try {
+      const response = await axios.post(`${API_URL}${Apies.Login}`, {
+        username: formData.get("username"),
+        password: formData.get("password"),
+        captcha_text: formData.get("captcha_text"),
+        captcha_id: formData.get("captcha_id"),
+      });
+      console.log(response.data.data.jwt);
+      if (response.data.data.jwt) {
+        setCookie(cookieName, response.data.data.jwt);
+        router.push("/dashboard/home");
+      }
+    } catch (e) {}
   }
 
   return (
