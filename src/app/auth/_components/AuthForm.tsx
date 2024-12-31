@@ -4,8 +4,10 @@ import Captcha from "@/app/_component/Captcha/Captcha";
 import Input from "@/app/_component/Form/Input";
 import { API_URL } from "@/configs/global";
 import { Apies } from "@/constant/apis";
+import { cookieName } from "@/lib/auth/constant";
 import { signIn } from "@/lib/auth/signIn";
 import axios from "axios";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 // import { useState } from "react";
 // import { signIn } from "next-auth/react";
@@ -52,6 +54,10 @@ const AuthForm = () =>
           captcha_id: formData.get("captcha_id") as string,
         });
         console.log("response", response);
+        if (response.data.data.jwt) {
+          setCookie(cookieName, response.data.data.jwt);
+          router.push("/dashboard/home");
+        }
       } catch (e: any) {
         console.log(e);
       }
