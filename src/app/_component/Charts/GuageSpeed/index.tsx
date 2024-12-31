@@ -6,8 +6,6 @@ import { formatNumberIntl } from "@/utils/formatNumber";
 const GaugeChart = ({ title, subTitle, data }: any) => {
   const chartRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    console.log(formatNumberIntl(data?.avg));
-
     const chartInstance = echarts.init(chartRef.current as HTMLDivElement);
     const option = {
       title: {

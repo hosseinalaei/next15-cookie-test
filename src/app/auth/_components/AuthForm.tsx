@@ -23,10 +23,9 @@ const AuthForm = () => {
         captcha_text: formData.get("captcha_text") as string,
         captcha_id: formData.get("captcha_id") as string,
       });
-      console.log("response", response);
       if (response.data.data.jwt) {
         setCookie(cookieName, response.data.data.jwt, {
-          httpOnly: false,
+          httpOnly: true,
           secure: process.env.NODE_ENV === "production",
         });
         router.push("/dashboard/home");

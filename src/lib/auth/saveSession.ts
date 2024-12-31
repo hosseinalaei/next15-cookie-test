@@ -5,7 +5,7 @@ import { cookieName } from "./constant";
 export async function saveSession(accessToken: string) {
   const cookieStore = cookies();
   cookieStore.set("USER_SESSION", accessToken, {
-    httpOnly: true,
+    httpOnly: false,
     secure: process.env.NODE_ENV === "production",
     // secure: false,
   });
