@@ -1,9 +1,10 @@
-"use client";
+"use server";
 import { API_URL } from "@/configs/global";
 import { Apies } from "@/constant/apis";
 import axios from "axios";
 import "server-only";
 import { saveSession } from "./saveSession";
+import { redirect } from "next/navigation";
 
 interface Props {
   username: string;
@@ -13,7 +14,6 @@ interface Props {
   captcha_id: string;
 }
 export async function signIn({
-  redirectTo = "/",
   username,
   password,
   captcha_text,
@@ -29,10 +29,14 @@ export async function signIn({
     const res = await axios.post(`${API_URL}${Apies.Login}`, body);
 
     saveSession(res.data.data.jwt);
+    // if (res.data.data.jwt) {
+    //   redirect("/dashboard/home");
+    // }
 
-    // redirect("/cooperate/admin/dashboard");
     return { success: true, data: res.data.data };
   } catch (error: any) {
-    return { success: false, message: error?.response?.data };
+    console.log(error);
+
+    return { success: false, message: error.response.data };
   }
 }

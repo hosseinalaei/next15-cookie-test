@@ -15,8 +15,8 @@ const BarMixChart = ({
   function transformData(xAxisData: any) {
     const transformedMap = new Map();
 
-    xAxisData.forEach((dataset: any) => {
-      dataset.forEach((entry: any) => {
+    xAxisData?.forEach((dataset: any) => {
+      dataset?.forEach((entry: any) => {
         const { key, doc_count } = entry;
 
         if (!transformedMap.has(key)) {
@@ -24,14 +24,14 @@ const BarMixChart = ({
             name: key,
             type: "bar",
             // stack: "total",
-            label: { show: true },
+            label: { show: true, fontFamily: "iranSans" },
             // emphasis: { focus: "series" },
             data: [],
           });
         }
-        const normalizedValue = Math.round(doc_count);
+        // const normalizedValue = Math.round(doc_count);
 
-        transformedMap.get(key).data.push(normalizedValue);
+        transformedMap.get(key).data.push(doc_count);
       });
     });
 
@@ -74,9 +74,9 @@ const BarMixChart = ({
             interval: 0,
             rotate: 30,
           },
-          // axisTick: {
-          //   alignWithLabel: true,
-          // },
+          axisTick: {
+            alignWithLabel: true,
+          },
         },
       ],
       yAxis: [

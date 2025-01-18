@@ -10,7 +10,6 @@ import { useGetCoinAvgCount } from "./hooks/getCoinAvgCount";
 import { useGetGoldAvgCount } from "./hooks/getGoldAvgCount";
 import AllDataCount from "../../_component/AllDataCount/AllDataCount";
 import { formatNumberIntl } from "@/utils/formatNumber";
-// import { useSession } from "next-auth/react";
 
 const HomePage = () => {
   const { data: allData, isLoading: allDataIsLoading } = useGetAllDataCount();
@@ -18,9 +17,6 @@ const HomePage = () => {
   const { data: carCount, isLoading: carIsLoading } = useGetCarAvgCount();
   const { data: coinCount, isLoading: coinIsLoading } = useGetCoinAvgCount();
   const { data: goldCount, isLoading: goldIsLoading } = useGetGoldAvgCount();
-
-  // const session = useSession();
-  // console.log("session", session);
 
   return (
     <>

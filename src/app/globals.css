@@ -13,11 +13,14 @@
     --foreground: #ededed;
   }
 } */
-
+@font-face {
+  font-family: 'iranSans';
+  src: local('iranSans'), url("./fonts/IRANSans.ttf") format('truetype');          
+}
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-iranSans);
+  font-family: var(--font-iranSans) ;
 }
 
 .pagination {
