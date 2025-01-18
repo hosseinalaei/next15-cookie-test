@@ -43,11 +43,11 @@ const AuthForm = () => {
     // if (result) {
     //   console.log("result", result);
     // }
+    console.log(result);
     if (!result.success) {
       toast.error(result.message?.message);
     }
     if (result.success) {
-      console.log(result);
       router.push("/dashboard/home");
     }
   }

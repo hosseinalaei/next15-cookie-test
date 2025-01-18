@@ -29,9 +29,6 @@ export async function signIn({
     const res = await axios.post(`${API_URL}${Apies.Login}`, body);
 
     saveSession(res.data.data.jwt);
-    // if (res.data.data.jwt) {
-    //   redirect("/dashboard/home");
-    // }
 
     return { success: true, data: res.data.data };
   } catch (error: any) {
