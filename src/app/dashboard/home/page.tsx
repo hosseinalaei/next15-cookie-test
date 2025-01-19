@@ -50,8 +50,7 @@ const HomePage = () => {
             {formatNumberIntl(carCount?.data?.avg)}
           </span>
         </Card>
-        {/* </div>
-      <div className="grid grid-cols-2 gap-4 my-4"> */}
+
         <Card className="bg-white">
           {coinIsLoading && <Loading />}
           {!coinIsLoading && (
@@ -72,7 +71,6 @@ const HomePage = () => {
             />
           )}
         </Card>
-        {/* <BarChart data={goldCount?.data} /> */}
       </div>
     </>
   );

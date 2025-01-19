@@ -9,5 +9,7 @@ export async function getSession(): Promise<{ token: string } | null> {
   if (!token) {
     return null;
   }
-  return { token };
+  console.log("ttttttttttt", token);
+
+  return { token: token };
 }
