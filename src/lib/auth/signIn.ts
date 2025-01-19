@@ -1,10 +1,9 @@
 "use server";
 import { API_URL } from "@/configs/global";
 import { Apies } from "@/constant/apis";
-import axios from "axios";
+import { redirect } from "next/navigation";
 import "server-only";
 import { saveSession } from "./saveSession";
-import { redirect } from "next/navigation";
 
 interface Props {
   username: string;
@@ -25,15 +24,31 @@ export async function signIn({
     captcha_text: captcha_text,
     captcha_id: captcha_id,
   };
-  try {
-    const res = await axios.post(`${API_URL}${Apies.Login}`, body);
 
-    saveSession(res.data.data.jwt);
+  // const res = await axios.post(`${API_URL}${Apies.Login}`, body);
+  const res = await fetch(`${API_URL}${Apies.Login}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
 
-    return { success: true, data: res.data.data };
-  } catch (error: any) {
-    console.log(error);
+  if (!res) {
+    return null;
 
-    return { success: false, message: error.response.data };
+    // return { success: false, message: res };
+  }
+  const data = await res.json();
+  console.log("mmmmmmmmmmm", data);
+  if (data.statusCode !== 200) {
+    return data.message;
+  }
+  if (data?.data?.jwt) {
+    console.log("jjjjjjjjjjjjjjjjjjjjj", data.data.jwt);
+    console.log("wwwwwwwwwwwwwwwwwwww", data.data);
+
+    saveSession(data.data.jwt);
+    redirect("/dashboard/home");
   }
 }
